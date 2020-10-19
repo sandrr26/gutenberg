@@ -22,7 +22,7 @@ import {
 import apiFetch from '@wordpress/api-fetch';
 import { addQueryArgs } from '@wordpress/url';
 import { __, sprintf } from '@wordpress/i18n';
-import { dateI18n, format, __experimentalGetSettings } from '@wordpress/date';
+import { format, __experimentalGetSettings } from '@wordpress/date';
 import {
 	InspectorControls,
 	BlockAlignmentToolbar,
@@ -559,12 +559,12 @@ export default function LatestPostsEdit( { attributes, setAttributes } ) {
 									) }
 								</div>
 							) }
-							{ displayPostDate && post.date_gmt && (
+							{ displayPostDate && post.date && (
 								<time
-									dateTime={ format( 'c', post.date_gmt ) }
+									dateTime={ format( 'c', post.date ) }
 									className="wp-block-latest-posts__post-date"
 								>
-									{ dateI18n( dateFormat, post.date_gmt ) }
+									{ format( dateFormat, post.date ) }
 								</time>
 							) }
 							{ displayPostContent &&

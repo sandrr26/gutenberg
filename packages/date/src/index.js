@@ -332,7 +332,7 @@ const formatMap = {
 export function format( dateFormat, dateValue = new Date() ) {
 	let i, char;
 	let newFormat = [];
-	const momentDate = momentLib( dateValue );
+	const momentDate = momentLib.tz( dateValue, WP_ZONE );
 	for ( i = 0; i < dateFormat.length; i++ ) {
 		char = dateFormat[ i ];
 		// Is this an escape?
@@ -399,6 +399,12 @@ export function gmdate( dateFormat, dateValue = new Date() ) {
 /**
  * Formats a date (like `wp_date()` in PHP), translating it into site's locale.
  *
+ * If the date string specifies a timezone e.g.: 2020-10-16T12:36:00.00-04:00
+ * the date is assumed to be in that timezone. If the date does not contain a
+ * timezone. The date is considered to be in the user's local timezone.
+ * Dates are converted to the site timezone before being formatted. If a date
+ * comes from WordPress API's and is already on the website timezone, and we just
+ * need to format it function `format` should be user instead.
  * Backward Compatibility Notice: if `timezone` is set to `true`, the function
  * behaves like `gmdateI18n`.
  *

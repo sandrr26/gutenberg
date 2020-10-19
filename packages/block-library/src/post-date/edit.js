@@ -8,7 +8,10 @@ import classnames from 'classnames';
  */
 import { useEntityProp } from '@wordpress/core-data';
 import { useState } from '@wordpress/element';
-import { __experimentalGetSettings, dateI18n } from '@wordpress/date';
+import {
+	__experimentalGetSettings,
+	format as wpDateFormat,
+} from '@wordpress/date';
 import {
 	AlignmentToolbar,
 	BlockControls,
@@ -52,7 +55,7 @@ export default function PostDateEdit( { attributes, context, setAttributes } ) {
 	const formatOptions = Object.values( settings.formats ).map(
 		( formatOption ) => ( {
 			key: formatOption,
-			name: dateI18n( formatOption, date ),
+			name: wpDateFormat( formatOption, date ),
 		} )
 	);
 	const resolvedFormat = format || siteFormat || settings.formats.date;
@@ -107,8 +110,8 @@ export default function PostDateEdit( { attributes, context, setAttributes } ) {
 
 			<div { ...blockProps }>
 				{ date && (
-					<time dateTime={ dateI18n( 'c', date ) }>
-						{ dateI18n( resolvedFormat, date ) }
+					<time dateTime={ wpDateFormat( 'c', date ) }>
+						{ wpDateFormat( resolvedFormat, date ) }
 
 						{ isPickerOpen && (
 							<Popover
