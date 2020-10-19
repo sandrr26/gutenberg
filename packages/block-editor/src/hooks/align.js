@@ -59,7 +59,15 @@ export function getValidAlignments(
 ) {
 	let validAlignments;
 	if ( Array.isArray( blockAlign ) ) {
-		validAlignments = blockAlign;
+		validAlignments = ALL_ALIGNMENTS.filter( ( value ) =>
+			blockAlign.includes( value )
+		);
+		// Exists solely for backward compatibility to cover custom values.
+		validAlignments = validAlignments.concat(
+			blockAlign.filter(
+				( value ) => ! validAlignments.includes( value )
+			)
+		);
 	} else if ( blockAlign === true ) {
 		// `true` includes all alignments...
 		validAlignments = ALL_ALIGNMENTS;
